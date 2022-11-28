@@ -1,5 +1,6 @@
 package com.example.hotelreservation.payload;
 
+import com.sun.istack.NotNull;
 import lombok.Data;
 
 import java.sql.Timestamp;
@@ -14,4 +15,5 @@ public class TransactionDTO {
         private Integer amount;
 
         private Integer bookingId;
+
         }

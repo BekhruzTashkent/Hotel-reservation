@@ -17,7 +17,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/roomType")
-public class RoomController {
+public class RoomTypeController {
 
     @Autowired
     RoomTypeService roomTypeService;
