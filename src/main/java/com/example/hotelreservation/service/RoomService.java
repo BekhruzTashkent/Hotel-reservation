@@ -16,7 +16,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class RoomSrvice {
+public class RoomService {
 
     @Autowired
     RoomRepository roomRepository;
@@ -72,7 +72,7 @@ public class RoomSrvice {
 
     }
 
-    public ApiResponse deleteRoomType(Integer id){
+    public ApiResponse deleteRoom(Integer id){
         Optional<Room> byId = roomRepository.findById(id);
         if(byId.isEmpty()){
             return new ApiResponse("no such roomType id", false);
