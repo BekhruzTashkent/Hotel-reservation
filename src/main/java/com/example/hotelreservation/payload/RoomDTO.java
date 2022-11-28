@@ -5,6 +5,8 @@ import lombok.Data;
 @Data
 public class RoomDTO {
 
+        //room
+
         private Integer roomNumber;
 
         private String description;
