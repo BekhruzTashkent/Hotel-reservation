@@ -44,7 +44,7 @@ public class TransactionController {
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping("/delete/{id}")
     public HttpEntity<?> deleteQA(@PathVariable Integer id){
         ApiResponse apiResponse = transactionService.deleteTransaction(id);
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);

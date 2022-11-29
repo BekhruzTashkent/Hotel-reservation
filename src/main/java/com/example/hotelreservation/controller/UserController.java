@@ -44,7 +44,7 @@ public class UserController {
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping("/delete/{id}")
     public HttpEntity<?> deleteQA(@PathVariable Integer id){
         ApiResponse apiResponse = userService.deleteUser(id);
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);

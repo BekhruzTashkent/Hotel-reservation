@@ -46,7 +46,7 @@ public class RoomTypeController {
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping("/delete/{id}")
     public HttpEntity<?> deleteQA(@PathVariable Integer id){
         ApiResponse apiResponse = roomTypeService.deleteRoomType(id);
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);

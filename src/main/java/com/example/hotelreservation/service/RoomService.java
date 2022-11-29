@@ -42,8 +42,8 @@ public class RoomService {
 
         Room room = new Room();
         room.setRoomNumber(roomDTO.getRoomNumber());
-        room.setDescription(room.getDescription());
-        room.setFeatures(room.getFeatures());
+        room.setDescription(roomDTO.getDescription());
+        room.setFeatures(roomDTO.getFeatures());
         room.setRoomType(byId.get());
 
         return new ApiResponse("saved", true);
@@ -64,8 +64,8 @@ public class RoomService {
 
         Room room = byIdRoom.get();
         room.setRoomNumber(roomDTO.getRoomNumber());
-        room.setDescription(room.getDescription());
-        room.setFeatures(room.getFeatures());
+        room.setDescription(roomDTO.getDescription());
+        room.setFeatures(roomDTO.getFeatures());
         room.setRoomType(byId.get());
 
         return new ApiResponse("saved", true);
