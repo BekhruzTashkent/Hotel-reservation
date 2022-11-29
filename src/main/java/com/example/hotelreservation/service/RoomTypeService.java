@@ -22,6 +22,14 @@ public class RoomTypeService {
     public List<RoomType> getAll(){
         return roomTypeRepository.findAll();
     }
+
+    public RoomType getById(Integer id){
+        Optional<RoomType> byId = roomTypeRepository.findById(id);
+        if(byId.isEmpty()){
+            return null;
+        }
+        return byId.orElse(null);
+    }
     
     public ApiResponse addRoomType(RoomTypeDTO roomTypeDTO){
 

@@ -6,7 +6,6 @@ import com.example.hotelreservation.payload.ApiResponse;
 import com.example.hotelreservation.payload.TransactionDTO;
 import com.example.hotelreservation.repository.BookingRepository;
 import com.example.hotelreservation.repository.TransactionRepository;
-import com.example.hotelreservation.service.TranzactionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +16,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 
-public class TranzactionService {
+public class TransactionService {
     
     @Autowired
     TransactionRepository transactionRepository;
