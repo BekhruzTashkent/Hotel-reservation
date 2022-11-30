@@ -39,7 +39,7 @@ public class RoomController {
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 
-    @PutMapping("/update")
+    @PutMapping("/update/{id}")
     public HttpEntity<?> update(@PathVariable Integer id, @RequestBody RoomDTO roomDTO){
         ApiResponse apiResponse = roomService.update(id, roomDTO);
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);

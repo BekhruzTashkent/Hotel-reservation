@@ -45,6 +45,7 @@ public class RoomService {
         room.setDescription(roomDTO.getDescription());
         room.setFeatures(roomDTO.getFeatures());
         room.setRoomType(byId.get());
+        roomRepository.save(room);
 
         return new ApiResponse("saved", true);
 
@@ -67,6 +68,7 @@ public class RoomService {
         room.setDescription(roomDTO.getDescription());
         room.setFeatures(roomDTO.getFeatures());
         room.setRoomType(byId.get());
+        roomRepository.save(room);
 
         return new ApiResponse("saved", true);
 

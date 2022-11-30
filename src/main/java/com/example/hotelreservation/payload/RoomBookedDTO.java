@@ -8,7 +8,7 @@ import java.sql.Timestamp;
 public class RoomBookedDTO {
 
         private Timestamp dateFrom;
-
+        //dto class
         private Timestamp dateTo;
 
         private Integer bookingId;

@@ -62,7 +62,7 @@ public class RoomBookedService {
     }
 
     public ApiResponse update(Integer id, RoomBookedDTO roomBookedDTO){
-
+        //search by id
         Optional<RoomBooked> byIdRoom = roomBookedRepository.findById(id);
         if(byIdRoom.isEmpty()){
             return new ApiResponse("no such roomBooked", false);

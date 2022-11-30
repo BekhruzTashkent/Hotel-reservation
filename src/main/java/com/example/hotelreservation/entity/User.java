@@ -31,6 +31,6 @@ public class User extends IdClass {
 
     private String zipcode;
 
-    private boolean status;
+    private boolean status = true;
 
 }

@@ -5,14 +5,14 @@ import lombok.Data;
 @Data
 public class RoomDTO {
 
-        //room
+    //room
 
-        private Integer roomNumber;
+    private Integer roomNumber;
 
-        private String description;
+    private String description;
 
-        private String features;
+    private String features;
 
-        private Integer roomTypeId;
-        
-        }
+    private Integer roomTypeId;
+
+}
