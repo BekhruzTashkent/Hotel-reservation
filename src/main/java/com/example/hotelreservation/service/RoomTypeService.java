@@ -30,7 +30,7 @@ public class RoomTypeService {
         }
         return byId.orElse(null);
     }
-    
+    //add room type
     public ApiResponse addRoomType(RoomTypeDTO roomTypeDTO){
 
         RoomType roomType = new RoomType();

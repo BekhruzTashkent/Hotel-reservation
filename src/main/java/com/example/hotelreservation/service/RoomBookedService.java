@@ -37,7 +37,7 @@ public class RoomBookedService {
     public List<RoomBooked> findAll(){
        return roomBookedRepository.findAll();
     }
-
+    // add roomBooked
     public ApiResponse add(RoomBookedDTO roomBookedDTO){
 
         Optional<Booking> byId = bookingRepository.findById(roomBookedDTO.getBookingId());
