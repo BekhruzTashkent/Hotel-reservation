@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import java.sql.Timestamp;
 
 
@@ -23,9 +24,9 @@ public class Booking extends IdClass {
     @Column(name = "start")
     private Timestamp dateOfIssue;
 
-    boolean isRoomBooked = false; //status
+    boolean isRoomBooked = true; //status
 
-    @ManyToOne
+    @OneToOne
     User user;
 
 }

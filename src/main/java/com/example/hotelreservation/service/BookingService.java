@@ -1,10 +1,12 @@
 package com.example.hotelreservation.service;
 
 import com.example.hotelreservation.entity.Booking;
+
 import com.example.hotelreservation.entity.User;
 import com.example.hotelreservation.payload.ApiResponse;
 import com.example.hotelreservation.payload.BookingDTO;
 import com.example.hotelreservation.repository.BookingRepository;
+import com.example.hotelreservation.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,7 +23,7 @@ public class BookingService {
     BookingRepository bookingRepository;
 
     @Autowired
-    UserService userService;
+    UserRepository userRepository;
     
     public List<Booking> getAll(){
         return bookingRepository.findAll();
@@ -34,12 +36,15 @@ public class BookingService {
     
     public ApiResponse addBooking(BookingDTO bookingDto){
 
-        Optional<User> userById = Optional.ofNullable(userService.findById(bookingDto.getUserID()));
+        Optional<User> byId = userRepository.findById(bookingDto.getUserID());
+        if(byId.isEmpty()){
+            return  new ApiResponse("no such user id", false);
+        }
 
 
         Booking booking = new Booking();
-        booking.setDateOfIssue(bookingDto.getDateOfIssue());
-        booking.setUser(userById.get());
+        booking.setDateOfIssue(bookingDto.getStart());
+        booking.setUser(byId.get());
         bookingRepository.save(booking);
 
         return new ApiResponse("added", true);
@@ -48,7 +53,10 @@ public class BookingService {
 
     public ApiResponse updateBooking(Integer id, BookingDTO bookingDto){
 
-        Optional<User> userById = Optional.ofNullable(userService.findById(bookingDto.getUserID()));
+        Optional<User> byId1 = userRepository.findById(bookingDto.getUserID());
+        if(byId1.isEmpty()){
+            return  new ApiResponse("no such user id", false);
+        }
 
         Optional<Booking> byId = bookingRepository.findById(id);
         if(byId.isEmpty()){
@@ -56,8 +64,8 @@ public class BookingService {
         }
 
         Booking booking = byId.get();
-        booking.setDateOfIssue(bookingDto.getDateOfIssue());
-        booking.setUser(userById.get());
+        booking.setDateOfIssue(bookingDto.getStart());
+        booking.setUser(byId1.get());
         bookingRepository.save(booking);
 
         return new ApiResponse("updated", true);

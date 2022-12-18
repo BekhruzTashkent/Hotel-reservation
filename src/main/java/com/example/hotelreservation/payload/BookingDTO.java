@@ -7,7 +7,7 @@ import java.sql.Timestamp;
 @Data
 public class BookingDTO {
 
-        private Timestamp dateOfIssue;
+        private Timestamp start;
 
         private Integer userID;
         
