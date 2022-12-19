@@ -11,8 +11,11 @@ import com.example.hotelreservation.repository.RoomBookedRepository;
 import com.example.hotelreservation.repository.RoomRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,6 +40,14 @@ public class RoomBookedService {
     public List<RoomBooked> findAll(){
        return roomBookedRepository.findAll();
     }
+
+//    @Transactional
+//    public List<RoomBookedProjection> getAllRoomsInterval(){
+//        List<RoomBookedProjection> allBy = roomBookedRepository.getAllDates();
+//        return allBy;
+//    }
+
+
     // add roomBooked
     public ApiResponse add(RoomBookedDTO roomBookedDTO){
 
@@ -55,9 +66,9 @@ public class RoomBookedService {
         roomBooked.setDateTo(roomBookedDTO.getDateTo());
         roomBooked.setBooking(byId.get());
         roomBooked.setRoom(byId1.get());
-        roomBookedRepository.save(roomBooked);
+        RoomBooked save = roomBookedRepository.save(roomBooked);
 
-        return new ApiResponse("saved", true);
+        return new ApiResponse("saved with id: "+save.getId(), true);
 
     }
 
@@ -98,6 +109,16 @@ public class RoomBookedService {
         roomBookedRepository.deleteById(id);
         return new ApiResponse("deleted", true);
 
+    }
+
+    public HttpEntity<?> findRoomByDate(Timestamp dateFromUser, Timestamp dateToUser) {
+        List<RoomBooked> roomDatesFrom = roomBookedRepository.getDateFrom();
+        List<RoomBooked> roomDatesTo = roomBookedRepository.getDateTo();
+
+
+        return ResponseEntity.ok(
+                new ApiResponse("ok", true)
+        );
     }
 
 

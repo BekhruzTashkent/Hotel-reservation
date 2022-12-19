@@ -4,8 +4,12 @@ import com.example.hotelreservation.entity.template.IdClass;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.lang.Nullable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 
 @Data
@@ -21,7 +25,10 @@ public class User extends IdClass {
 
     private Integer phone;
 
+    @Column(unique = true)
     private String email;
+
+    private String password;
 
     private String country;
 

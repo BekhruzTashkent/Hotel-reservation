@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,42 +35,52 @@ public class BookingService {
         return byId.orElse(null);
     }
     
-    public ApiResponse addBooking(BookingDTO bookingDto){
+    public ApiResponse addBooking(@Valid BookingDTO bookingDto){
 
-        Optional<User> byId = userRepository.findById(bookingDto.getUserID());
-        if(byId.isEmpty()){
-            return  new ApiResponse("no such user id", false);
+        try {
+            Optional<User> byPasswordAndEmail =
+                    userRepository.findByPasswordAndEmail(bookingDto.getPassword(), bookingDto.getEmail());
+            if (byPasswordAndEmail.isEmpty()) {
+                return new ApiResponse("password or email error", false);
+            }
+
+            Booking booking = new Booking();
+            booking.setDateOfIssue(bookingDto.getStart());
+            booking.setUser(byPasswordAndEmail.get());
+            bookingRepository.save(booking);
+
+            return new ApiResponse("added", true);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
-
-
-        Booking booking = new Booking();
-        booking.setDateOfIssue(bookingDto.getStart());
-        booking.setUser(byId.get());
-        bookingRepository.save(booking);
-
-        return new ApiResponse("added", true);
 
     }
 
-    public ApiResponse updateBooking(Integer id, BookingDTO bookingDto){
+    public ApiResponse updateBooking(Integer id,@Valid BookingDTO bookingDto){
 
-        Optional<User> byId1 = userRepository.findById(bookingDto.getUserID());
-        if(byId1.isEmpty()){
-            return  new ApiResponse("no such user id", false);
+
+        try {
+            Optional<Booking> byId = bookingRepository.findById(id);
+            if (byId.isEmpty()) {
+                return new ApiResponse("no such booking id", false);
+            }
+
+            Optional<User> byPasswordAndEmail =
+                    userRepository.findByPasswordAndEmail(bookingDto.getPassword(), bookingDto.getEmail());
+            if (byPasswordAndEmail.isEmpty()) {
+                return new ApiResponse("password or email error", false);
+            }
+
+            Booking booking = byId.get();
+            booking.setDateOfIssue(bookingDto.getStart());
+            booking.setUser(byPasswordAndEmail.get());
+            bookingRepository.save(booking);
+
+
+            return new ApiResponse("updated", true);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
-
-        Optional<Booking> byId = bookingRepository.findById(id);
-        if(byId.isEmpty()){
-            return new ApiResponse("no such booking id", false);
-        }
-
-        Booking booking = byId.get();
-        booking.setDateOfIssue(bookingDto.getStart());
-        booking.setUser(byId1.get());
-        bookingRepository.save(booking);
-
-        return new ApiResponse("updated", true);
-
     }
 
     public ApiResponse deleteBooking(Integer id){

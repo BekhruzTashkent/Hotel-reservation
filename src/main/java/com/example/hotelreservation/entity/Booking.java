@@ -20,7 +20,7 @@ import java.sql.Timestamp;
 
 public class Booking extends IdClass {
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
     @Column(name = "start")
     private Timestamp dateOfIssue;
 

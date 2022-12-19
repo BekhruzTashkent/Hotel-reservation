@@ -3,6 +3,7 @@ package com.example.hotelreservation.controller;
 import com.example.hotelreservation.entity.RoomBooked;
 import com.example.hotelreservation.payload.ApiResponse;
 import com.example.hotelreservation.payload.RoomBookedDTO;
+import com.example.hotelreservation.projection.RoomBookedProjection;
 import com.example.hotelreservation.service.RoomBookedService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @RestController
@@ -32,6 +34,12 @@ public class RoomBookedController {
         return new ResponseEntity<>(roomBooked, HttpStatus.OK);
     }
 
+    @GetMapping("/getDateFrom")
+    public HttpEntity<?> getDateFrom(){
+        List<RoomBookedProjection> allRoomsInterval = roomBookedService.getAllRoomsInterval();
+        return new ResponseEntity<>(allRoomsInterval, HttpStatus.OK);
+    }
+
     @PostMapping("/add")
     public HttpEntity<?> add(@RequestBody RoomBookedDTO roomBookedDTO){
         ApiResponse apiResponse = roomBookedService.add(roomBookedDTO);
@@ -49,4 +57,13 @@ public class RoomBookedController {
         ApiResponse apiResponse = roomBookedService.deleteRoom(id);
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
+
+    //---//
+
+    @GetMapping("/getRoomByDate/{dateFrom}")
+    public HttpEntity<?> getRoomByDate(@RequestBody Timestamp dateFrom, @RequestBody Timestamp dateTo){
+        roomBookedService.findRoomByDate(dateFrom, dateTo);
+        return null;
+    }
+
 }

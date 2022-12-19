@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -33,13 +34,13 @@ public class BookingController {
     }
 
     @PostMapping("/add")
-    public HttpEntity<?> add(@RequestBody BookingDTO bookingDTO){
+    public HttpEntity<?> add(@Valid @RequestBody BookingDTO bookingDTO){
         ApiResponse apiResponse = bookingService.addBooking(bookingDTO);
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 
     @PutMapping("/update/{id}")
-    public HttpEntity<?> update(@PathVariable Integer id, @RequestBody BookingDTO bookingDTO){
+    public HttpEntity<?> update(@PathVariable Integer id,@Valid @RequestBody BookingDTO bookingDTO){
         ApiResponse apiResponse = bookingService.updateBooking(id, bookingDTO);
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
