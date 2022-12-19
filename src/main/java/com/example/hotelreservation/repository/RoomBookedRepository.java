@@ -33,13 +33,13 @@ public interface RoomBookedRepository extends JpaRepository<RoomBooked, Integer>
 //    List<RoomBookedProjection> getAllDates();
 //    RoomBooked findByDateFromAAndDateTo(Timestamp dateFromUser, Timestamp dateToUser);
 
-    @Query(
-            value = "select rm.dateFrom from room_booked rm"
-    )
-    List<RoomBooked> getDateFrom();
+//    @Query(
+//            value = "select rm.dateFrom from room_booked rm"
+//    )
+//    List<Timestamp> getDateFrom();
 
     @Query(
-            value = "select rm.dateTo from room_booked rm"
+            value = "select rm.dateFrom, rm.dateTo from room_booked rm"
     )
-    List<RoomBooked> getDateTo();
+    List<RoomBooked> getDate();
 }

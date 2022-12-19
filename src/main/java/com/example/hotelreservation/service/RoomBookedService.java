@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -111,14 +112,22 @@ public class RoomBookedService {
 
     }
 
-    public HttpEntity<?> findRoomByDate(Timestamp dateFromUser, Timestamp dateToUser) {
-        List<RoomBooked> roomDatesFrom = roomBookedRepository.getDateFrom();
-        List<RoomBooked> roomDatesTo = roomBookedRepository.getDateTo();
+    public List<RoomBooked> findRoomByDate(Timestamp dateFromUser, Timestamp dateToUser) {
+        List<RoomBooked> roomBookedInfo = roomBookedRepository.findAll();
+        List<RoomBooked> availableRooms = null;
 
+        for (int i = 0; i < roomBookedInfo.size(); i++) {
+            if(roomBookedInfo.get(i).getDateFrom().compareTo(dateFromUser) >= 0
+                    && roomBookedInfo.get(i).getDateTo().compareTo(dateFromUser) <= 0)
+            {
+                if(roomBookedInfo.get(i).getDateFrom().compareTo(dateToUser) >= 0
+                        && roomBookedInfo.get(i).getDateTo().compareTo(dateToUser) <= 0) {
+                    availableRooms.add(roomBookedInfo.get(i));
+                }
+            }
+        }
 
-        return ResponseEntity.ok(
-                new ApiResponse("ok", true)
-        );
+        return availableRooms;
     }
 
 
