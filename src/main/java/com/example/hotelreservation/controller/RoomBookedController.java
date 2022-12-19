@@ -34,11 +34,11 @@ public class RoomBookedController {
         return new ResponseEntity<>(roomBooked, HttpStatus.OK);
     }
 
-    @GetMapping("/getDateFrom")
-    public HttpEntity<?> getDateFrom(){
-        List<RoomBookedProjection> allRoomsInterval = roomBookedService.getAllRoomsInterval();
-        return new ResponseEntity<>(allRoomsInterval, HttpStatus.OK);
-    }
+//    @GetMapping("/getDateFrom")
+//    public HttpEntity<?> getDateFrom(){
+//        List<RoomBookedProjection> allRoomsInterval = roomBookedService.getAllRoomsInterval();
+//        return new ResponseEntity<>(allRoomsInterval, HttpStatus.OK);
+//    }
 
     @PostMapping("/add")
     public HttpEntity<?> add(@RequestBody RoomBookedDTO roomBookedDTO){
@@ -60,10 +60,10 @@ public class RoomBookedController {
 
     //---//
 
-    @GetMapping("/getRoomByDate/{dateFrom}")
+    @PostMapping("/getRoomByDate")
     public HttpEntity<?> getRoomByDate(@RequestBody Timestamp dateFrom, @RequestBody Timestamp dateTo){
-        roomBookedService.findRoomByDate(dateFrom, dateTo);
-        return null;
+        List<RoomBooked> availableRooms = roomBookedService.findRoomByDate(dateFrom, dateTo);
+        return new ResponseEntity<>(availableRooms, HttpStatus.OK);
     }
 
 }
