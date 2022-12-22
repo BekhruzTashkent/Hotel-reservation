@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -31,6 +32,12 @@ public class BookingController {
     public HttpEntity<?> getById(@PathVariable Integer id){
         Booking booking = bookingService.getById(id);
         return new ResponseEntity<>(booking, HttpStatus.OK);
+    }
+
+    @GetMapping("/byEmailAndPassword")
+    public HttpEntity<?> getByEmailAndPassword(@RequestBody BookingDTO bookingDTO){
+        List<Booking> bookings = bookingService.getByEmailAndPassword(bookingDTO.getEmail(), bookingDTO.getPassword());
+        return new ResponseEntity<>(bookings, HttpStatus.OK);
     }
 
     @PostMapping("/add")

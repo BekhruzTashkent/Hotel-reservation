@@ -96,5 +96,12 @@ public class BookingService {
         return new ApiResponse("deleted", true);
 
     }
-    
+
+    public List<Booking> getByEmailAndPassword(String email, String password) {
+        List<Booking> bookingByEmailAndPassword = bookingRepository.findBookingByEmailAndPassword(email, password);
+        if(bookingByEmailAndPassword.isEmpty()){
+            return null;
+        }
+        return bookingByEmailAndPassword;
+    }
 }
