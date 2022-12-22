@@ -4,11 +4,13 @@ package com.example.hotelreservation.service;
 import com.example.hotelreservation.entity.Room;
 import com.example.hotelreservation.entity.RoomBooked;
 import com.example.hotelreservation.entity.Booking;
+import com.example.hotelreservation.entity.User;
 import com.example.hotelreservation.payload.ApiResponse;
 import com.example.hotelreservation.payload.RoomBookedDTO;
 import com.example.hotelreservation.repository.BookingRepository;
 import com.example.hotelreservation.repository.RoomBookedRepository;
 import com.example.hotelreservation.repository.RoomRepository;
+import com.example.hotelreservation.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -33,6 +35,9 @@ public class RoomBookedService {
     @Autowired
     RoomBookedRepository roomBookedRepository;
 
+    @Autowired
+    UserRepository userRepository;
+
     public RoomBooked getById(Integer id){
         Optional<RoomBooked> byId = roomBookedRepository.findById(id);
         return byId.orElse(null);
@@ -48,6 +53,22 @@ public class RoomBookedService {
 //        return allBy;
 //    }
 
+
+//    public ApiResponse secondAdd(RoomBookedDTO roomBookedDTO){
+//
+//        Optional<User> byPasswordAndEmail =
+//                userRepository.findByPasswordAndEmail(roomBookedDTO.getPassword(), roomBookedDTO.getEmail());
+//        if (byPasswordAndEmail.isEmpty()) {
+//            return new ApiResponse("password or email error", false);
+//        }
+//
+//        RoomBooked roomBooked = new RoomBooked();
+//        roomBooked.setDateFrom(roomBookedDTO.getDateFrom());
+//        roomBooked.setDateTo(roomBookedDTO.getDateTo());
+//        RoomBooked save = roomBookedRepository.save(roomBooked);
+//
+//        return new ApiResponse("saved " + save.getId(), true);
+//    }
 
     // add roomBooked
     public ApiResponse add(RoomBookedDTO roomBookedDTO){
@@ -112,22 +133,32 @@ public class RoomBookedService {
 
     }
 
+//    public HttpEntity<?> findRoomByDate(Timestamp dateFromUser, Timestamp dateToUser) {
+//        List<Timestamp> roomDatesFrom = roomBookedRepository.getDateFrom();
+//        List<RoomBooked> roomDatesTo = roomBookedRepository.getDateTo();
+//
+//
+//k
+//        return ResponseEntity.ok(
+//                new ApiResponse("ok", true)
+//        );
+//    }
+
     public List<RoomBooked> findRoomByDate(Timestamp dateFromUser, Timestamp dateToUser) {
         List<RoomBooked> roomBookedInfo = roomBookedRepository.findAll();
-        List<RoomBooked> availableRooms = null;
 
         for (int i = 0; i < roomBookedInfo.size(); i++) {
             if(roomBookedInfo.get(i).getDateFrom().compareTo(dateFromUser) >= 0
-                    && roomBookedInfo.get(i).getDateTo().compareTo(dateFromUser) <= 0)
-            {
-                if(roomBookedInfo.get(i).getDateFrom().compareTo(dateToUser) >= 0
-                        && roomBookedInfo.get(i).getDateTo().compareTo(dateToUser) <= 0) {
-                    availableRooms.add(roomBookedInfo.get(i));
-                }
+                    && roomBookedInfo.get(i).getDateFrom().compareTo(dateToUser) <= 0) {
+                roomBookedInfo.remove(i);
+            }
+            if(roomBookedInfo.get(i).getDateTo().compareTo(dateFromUser) >= 0
+                    && roomBookedInfo.get(i).getDateTo().compareTo(dateToUser) <= 0) {
+                roomBookedInfo.remove(i);
             }
         }
 
-        return availableRooms;
+        return roomBookedInfo;
     }
 
 

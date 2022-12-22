@@ -19,7 +19,7 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "room_booked")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class RoomBooked extends IdClass {
 
     private boolean currentStatus = true;
@@ -33,7 +33,6 @@ public class RoomBooked extends IdClass {
     private Timestamp dateTo;
 
 
-    @JsonIgnore
     @OneToOne
     private Booking booking;
 

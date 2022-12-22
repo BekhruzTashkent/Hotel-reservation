@@ -2,6 +2,7 @@ package com.example.hotelreservation.service;
 
 import com.example.hotelreservation.entity.Booking;
 
+import com.example.hotelreservation.entity.RoomBooked;
 import com.example.hotelreservation.entity.User;
 import com.example.hotelreservation.payload.ApiResponse;
 import com.example.hotelreservation.payload.BookingDTO;
@@ -43,6 +44,8 @@ public class BookingService {
             if (byPasswordAndEmail.isEmpty()) {
                 return new ApiResponse("password or email error", false);
             }
+
+
 
             Booking booking = new Booking();
             booking.setDateOfIssue(bookingDto.getStart());

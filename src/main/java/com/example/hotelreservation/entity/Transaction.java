@@ -21,7 +21,7 @@ public class Transaction extends IdClass {
 
     private String methodOfPayment;
 
-    private boolean status;
+    private boolean status = true;
 
     private Integer amount;
 

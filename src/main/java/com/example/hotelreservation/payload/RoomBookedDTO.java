@@ -12,16 +12,18 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 public class RoomBookedDTO {
 
-        @JsonProperty("dateFrom")
+//        @JsonProperty("dateFrom")
         private Timestamp dateFrom;
 
-        @JsonProperty("dateFrom")
+//        @JsonProperty("dateFrom")
         private Timestamp dateTo;
 
-        @JsonProperty("dateFrom")
         private Integer bookingId;
 
-        @JsonProperty("dateFrom")
         private Integer roomId;
+
+        private String email;
+
+        private String password;
         
 }

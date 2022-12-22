@@ -46,6 +46,12 @@ public class RoomBookedController {
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 
+//    @PostMapping("/secondAdd")
+//    public HttpEntity<?> addSecond(@RequestBody RoomBookedDTO roomBookedDTO){
+//        ApiResponse apiResponse = roomBookedService.secondAdd(roomBookedDTO);
+//        return new ResponseEntity<>(apiResponse, HttpStatus.OK);
+//    }
+
     @PutMapping("/update/{id}")
     public HttpEntity<?> update(@PathVariable Integer id, @RequestBody RoomBookedDTO roomBookedDTO){
         ApiResponse apiResponse = roomBookedService.update(id, roomBookedDTO);
@@ -60,10 +66,15 @@ public class RoomBookedController {
 
     //---//
 
+//    @GetMapping("/getRoomByDate/{dateFrom}")
+//    public HttpEntity<?> getRoomByDate(@RequestBody Timestamp dateFrom, @RequestBody Timestamp dateTo){
+//        roomBookedService.findRoomByDate(dateFrom, dateTo);
+//        return null;
+//    }
+
     @PostMapping("/getRoomByDate")
-    public HttpEntity<?> getRoomByDate(@RequestBody Timestamp dateFrom, @RequestBody Timestamp dateTo){
-        List<RoomBooked> availableRooms = roomBookedService.findRoomByDate(dateFrom, dateTo);
+    public HttpEntity<?> getRoomByDate(@RequestBody RoomBookedDTO roomBookedDTO){
+        List<RoomBooked> availableRooms = roomBookedService.findRoomByDate(roomBookedDTO.getDateFrom(), roomBookedDTO.getDateTo());
         return new ResponseEntity<>(availableRooms, HttpStatus.OK);
     }
-
 }
