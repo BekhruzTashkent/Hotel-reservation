@@ -34,11 +34,11 @@ public class BookingController {
         return new ResponseEntity<>(booking, HttpStatus.OK);
     }
 
-    @GetMapping("/byEmailAndPassword")
-    public HttpEntity<?> getByEmailAndPassword(@RequestBody BookingDTO bookingDTO){
-        List<Booking> bookings = bookingService.getByEmailAndPassword(bookingDTO.getEmail(), bookingDTO.getPassword());
-        return new ResponseEntity<>(bookings, HttpStatus.OK);
-    }
+//    @GetMapping("/byEmailAndPassword")
+//    public HttpEntity<?> getByEmailAndPassword(@RequestBody BookingDTO bookingDTO){
+//        List<Booking> bookings = bookingService.getByEmailAndPassword(bookingDTO);
+//        return new ResponseEntity<>(bookings, HttpStatus.OK);
+//    }
 
     @PostMapping("/add")
     public HttpEntity<?> add(@Valid @RequestBody BookingDTO bookingDTO){

@@ -147,14 +147,17 @@ public class RoomBookedService {
     public List<RoomBooked> findRoomByDate(Timestamp dateFromUser, Timestamp dateToUser) {
         List<RoomBooked> roomBookedInfo = roomBookedRepository.findAll();
 
-        for (int i = 0; i < roomBookedInfo.size(); i++) {
-            if(roomBookedInfo.get(i).getDateFrom().compareTo(dateFromUser) >= 0
-                    && roomBookedInfo.get(i).getDateFrom().compareTo(dateToUser) <= 0) {
-                roomBookedInfo.remove(i);
+        int size = roomBookedInfo.size();
+        for (int i = 0; i < size; i++) {
+            if((roomBookedInfo.get(i).getDateFrom().compareTo(dateFromUser) >= 0)) {
+                if ((roomBookedInfo.get(i).getDateTo().compareTo(dateFromUser) <= 0)){
+                    roomBookedInfo.remove(i);
+                }
             }
-            if(roomBookedInfo.get(i).getDateTo().compareTo(dateFromUser) >= 0
-                    && roomBookedInfo.get(i).getDateTo().compareTo(dateToUser) <= 0) {
-                roomBookedInfo.remove(i);
+            if((roomBookedInfo.get(i).getDateFrom().compareTo(dateToUser) >= 0)) {
+                if ((roomBookedInfo.get(i).getDateTo().compareTo(dateToUser) <= 0)) {
+                    roomBookedInfo.remove(i);
+                }
             }
         }
 

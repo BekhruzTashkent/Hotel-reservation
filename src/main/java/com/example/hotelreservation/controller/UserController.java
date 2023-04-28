@@ -41,8 +41,12 @@ public class UserController {
 
     @PostMapping("/add")
     public HttpEntity<?> add(@Valid @RequestBody UserDTO userDTO) {
-        ApiResponse apiResponse = userService.addUser(userDTO);
-        return new ResponseEntity<>(apiResponse, HttpStatus.OK);
+        try {
+            ApiResponse apiResponse = userService.addUser(userDTO);
+            return new ResponseEntity<>(apiResponse, HttpStatus.OK);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @PutMapping("/update/{id}")

@@ -97,11 +97,12 @@ public class BookingService {
 
     }//i am
 
-    public List<Booking> getByEmailAndPassword(String email, String password) {
-        List<Booking> bookingByEmailAndPassword = bookingRepository.findBookingByEmailAndPassword(email, password);
-        if(bookingByEmailAndPassword.isEmpty()){
-            return null;
-        }
-        return bookingByEmailAndPassword;
-    }
+//    public List<Booking> getByEmailAndPassword(BookingDTO bookingDTO) {
+//        Optional<User> byPasswordAndEmail = userRepository.findByPasswordAndEmail(bookingDTO.getEmail(), bookingDTO.getPassword());
+//        if(byPasswordAndEmail.isEmpty()){
+//            return null;
+//        }
+//
+//       return byPasswordAndEmail.or;
+//    }
 }
